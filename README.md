@@ -1,6 +1,6 @@
 # gpsearch
 
-Source code for Bayesian optimization and experimental design with likelihood-weighted acquisition functions. 
+Source code for Bayesian optimization and active learning with likelihood-weighted acquisition functions. 
 
 ## Installation
 

@@ -37,7 +37,7 @@ def rmse(m_list, inputs, yy=None, pts=None, accumulate=False):
     
 
 def log_pdf(m_list, inputs, pt=None, pts=None, clip=True, 
-                 accumulate=False):
+            accumulate=False):
     """Log-error between estimated pdf and true pdf.
 
     Parameters
@@ -251,11 +251,11 @@ def distmin_obs(m_list, inputs, true_xmin=[]):
     res : list
         A list containing the values of the distance to minimum for each 
         model in `m_list` using past observations:
-            $\ell(n) = \Vert argmin y_i - x_{true} \Vert^2$
-        where y_i are the observations recorded in the first `n` 
-        iterations, and x_{true} the location of the minimum of the 
-        objective function. When more than one global minimum exists, we 
-        compute the distance to each minimum and report the smallest 
+            $\ell(n) = \Vert argmin x_i - x_{true} \Vert^2$
+        where x_i is the location of the current best observation,
+        and x_{true} the location of the minimum of the objective 
+        function. When more than one global minimizer exists, we 
+        compute the distance to each minimizer and report the smallest 
         value.
     """
     res = np.zeros(len(m_list))

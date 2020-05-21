@@ -3,8 +3,7 @@ from gpsearch import BlackBox, UniformInputs
 
 class TestFunction():
     """
-    This wrapper takes another objective and scales its input domain 
-    to [0,1]^d. 
+    Rescales the input domain to [0,1]^d. 
     """
     def __init__(self, function, domain, ymin, xmin, args={}, kwargs={},
                  noise_var=0.0, rescale_X=False):

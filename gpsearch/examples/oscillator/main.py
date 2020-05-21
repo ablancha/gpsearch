@@ -1,7 +1,6 @@
 import numpy as np
 from gpsearch import (BlackBox, GaussianInputs, OptimalDesign, 
-                      true_pdf, model_pdf, plot_pdf, plot_smp)
-from gpsearch.core.acquisitions import *
+                      plot_smp, plot_pdf, custom_KDE, model_pdf)
 from oscillator import Oscillator, Noise
 
 
@@ -37,15 +36,19 @@ def main():
                       noise_var=0.0, 
                       normalize_Y=True)
     m_list = o.optimize(n_iter,
-                        acquisition="IVR_LW",
+                        acquisition="US",
                         num_restarts=10,
                         parallel_restarts=True)
 
-    fname_map = "map_samples2D.txt"
-    pt = true_pdf(inputs, filename=fname_map)
-    pts = inputs.draw_samples(n_samples=100, sample_method="grd")
+    smpl = np.genfromtxt("map_samples2D.txt")
+    pts = smpl[:,0:-1]
+    pdf = custom_KDE(smpl[:,-1], weights=inputs.pdf(pts))
 
     for ii in np.arange(0, n_iter+1, 10):
+        pb, pp, pm = model_pdf(m_list[ii], inputs, pts=pts)
+        plot_pdf(pdf, pb, [pm, pp],
+                 filename="pdfs%.4d.pdf"%(ii),
+                 xticks=[-3,0,3], yticks=[-8,-3,2])
         plot_smp(m_list[ii], inputs, n_init,
                  filename="smps%.4d.pdf"%(ii), 
                  xticks=[-6,0,6], yticks=[-5,0,5], 

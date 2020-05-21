@@ -202,6 +202,26 @@ class BenchmarkerLHS(Benchmarker):
 
 
 class BenchmarkerPath(Benchmarker):
+    """A class for benchmark of path planning algorithm.
+
+    Parameters
+    ----------
+    tmap, acquisition, inputs, metric : see parent class `Benchmarker`
+    path_planner : instance of `PathPlanner`
+        Path parametrization.
+    X_pose : array_like
+        The robot's starting pose. Must be in the form 
+        (x_pos, y_pos, angle)
+    n_iter : int
+        Maximum number of iterations.
+
+    Attributes
+    ----------
+    tmap, acquisition, inputs, metric, path_planner, X_pose, 
+        n_iter : see Parameters
+
+    """
+
 
     def __init__(self, tmap, acquisition, path_planner, X_pose,
                  n_iter, inputs, metric):

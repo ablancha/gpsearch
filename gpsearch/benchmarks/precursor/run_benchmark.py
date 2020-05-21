@@ -39,11 +39,12 @@ def main():
     a_bnds = 4.0
     domain = [ [-a, a] for a in a_bnds*np.sqrt(np.diag(cov)) ]
     inputs = GaussianInputs(domain, mean, cov)
+
     noise_var = 1e-3 
     my_map = BlackBox(map_def, args=(psi,usnap_mean), noise_var=noise_var)
 
     # Do Benchmark
-    prefix = "prec2d_noisevar1e-3_"
+    prefix = "prec2d_"
 
     n_init = 3
     n_iter = 100

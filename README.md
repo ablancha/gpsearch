@@ -10,6 +10,11 @@ Execute `pip install .` from the master directory.
 
 Beware of [this issue](https://github.com/SheffieldML/GPy/issues/802) if you are using the `devel` version of `GPy`.  The acquisition functions available in `gpsearch` were implemented before this issue was fixed.
 
+### To Do
+
+- [ ] Make acquisition functions compatible with `devel` version of `GPy`
+- [ ] Clean up tests
+
 ## References
 
 * [Bayesian Optimization with Output-Weighted Optimal Sampling](https://arxiv.org/abs/2004.10599)

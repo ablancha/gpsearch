@@ -8,12 +8,7 @@ Execute `pip install .` from the master directory.
 
 ## Notes
 
-Beware of [this issue](https://github.com/SheffieldML/GPy/issues/802) if you are using the `devel` version of `GPy`.  The acquisition functions available in `gpsearch` were implemented before this issue was fixed.
-
-### To Do
-
-- [ ] Make acquisition functions compatible with `devel` version of `GPy`
-- [ ] Clean up tests
+Beware of [this issue](https://github.com/SheffieldML/GPy/issues/802) if you are using the `devel` version of `GPy`.  The acquisition functions available in `gpsearch` are compatible with the `deploy` branch of `GPy` which is obtained using `pip install --upgrade GPy`.
 
 ## References
 

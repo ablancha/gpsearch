@@ -30,13 +30,13 @@ def main():
     mean = np.zeros(ndim)
     cov = np.diag(lam)
 
-    domain = [ [-0*a, a] for a in 6.0*np.sqrt(np.diag(cov)) ] 
+    domain = [ [-a, a] for a in 6.0*np.sqrt(np.diag(cov)) ] 
     inputs = GaussianInputs(domain, mean, cov)
 
     X = inputs.draw_samples(15, "lhs")
     Y = myMap.evaluate(X)
     o = OptimalDesign(X, Y, myMap, inputs, normalize_Y=True)
-    x_new = np.atleast_2d([1.0,2.0]) 
+    x_new = np.atleast_2d([1.0,2.0])
    #x_new = X[0:1,:]
 
     qcrit = IVR(o.model, o.inputs)

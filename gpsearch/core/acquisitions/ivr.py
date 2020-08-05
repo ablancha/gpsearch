@@ -55,7 +55,7 @@ class IVR(Acquisition):
         K = self.model.kern
         X = self.model.X
         Skk_inv = self.model.posterior.woodbury_inv
-        jac_ker = -K.gradients_X(1.0, X, x) # Beware minus sign!
+        jac_ker = -K.gradients_X(np.ones((1,x.shape[0])), X, x) # Beware minus sign!
         y_k = np.dot(Skk_inv, K.K(X,x))
         jac_y_k = np.dot(Skk_inv, jac_ker)
 
@@ -120,7 +120,7 @@ class IVR_LW(AcquisitionWeighted, IVR):
         K = self.model.kern
         X = self.model.X
         Skk_inv = self.model.posterior.woodbury_inv
-        jac_ker = -K.gradients_X(1.0, X, x) # Beware minus sign!
+        jac_ker = -K.gradients_X(np.ones((1,x.shape[0])), X, x) # Beware minus sign!
         y_k = np.dot(Skk_inv, K.K(X,x))
         jac_y_k = np.dot(Skk_inv, jac_ker)
 

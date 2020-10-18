@@ -16,7 +16,7 @@ def run(function, prefix):
 #   cov = np.ones(inputs.input_dim)*0.01
 #   inputs = GaussianInputs(domain, mean, cov)
 
-    n_iter = 100 
+    record_time = np.linspace(0,7,101)
     n_trials = 100
     n_jobs = 40
 
@@ -28,7 +28,6 @@ def run(function, prefix):
     planner = PathPlanner(inputs.domain, 
                           look_ahead=0.2, 
                           turning_radius=0.02,
-                          record_step=4,
                           n_frontier=150,
                           fov=0.75*np.pi)
 
@@ -42,7 +41,7 @@ def run(function, prefix):
 
     for acq in acq_list:
         print("Benchmarking " + acq)
-        b = BenchmarkerPath(my_map, acq, planner, X_pose, n_iter, inputs, metric=metric)
+        b = BenchmarkerPath(my_map, acq, planner, X_pose, record_time, inputs, metric=metric)
         result = b.run_benchmark(n_trials, n_jobs=n_jobs, filename=prefix+acq)
 
 

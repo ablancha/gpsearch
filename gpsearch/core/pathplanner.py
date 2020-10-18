@@ -20,9 +20,6 @@ class PathPlanner(object):
     fov : integer, optional
         Robot's field of vision. Excludes candidate destinations that
         lie outside the interval [-fov, fov] (behind the robot).
-    record_step : integer, optional
-        How many (equidistant) queries are to be made along the path. 
-        Excludes current pose but includes destination.
     padding : float, optional
         Minimum allowable distance to the domain boundaries. Candidate
         destinations that are less than `padding` away are discarded.
@@ -36,7 +33,7 @@ class PathPlanner(object):
     """
 
     def __init__(self, domain, turning_radius=0.01, look_ahead=0.1, 
-                 n_frontier=100, fov=0.75*np.pi, record_step=4, padding=None):
+                 n_frontier=100, fov=0.75*np.pi, padding=None):
         self.domain = domain
         self.turning_radius = turning_radius
         self.look_ahead = look_ahead
@@ -98,7 +95,7 @@ class PathPlanner(object):
                   for q_target in frontier ]
         return paths
 
-    def make_itinerary(self, path, sample_size=None):
+    def make_itinerary(self, path, sample_size):
         """Generate a list of poses sampled equidistantly along
         a Dubins path.  
         
@@ -116,8 +113,6 @@ class PathPlanner(object):
             A list of `sample_size` poses from the Dubins path.
 
         """
-        if sample_size is None:
-            sample_size = self.record_step
         step_size = path.path_length()/sample_size - 1e-10
         samples = path.sample_many(step_size)
         return samples

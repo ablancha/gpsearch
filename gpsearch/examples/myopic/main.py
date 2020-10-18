@@ -12,16 +12,15 @@ def main():
     b = Michalewicz(noise_var=noise_var, rescale_X=True)
     my_map, inputs, true_ymin, true_xmin = b.my_map, b.inputs, b.ymin, b.xmin
 
-    n_iter = 20
     X_pose = (0,0, np.pi/4)
     Y_pose = my_map.evaluate(X_pose[0:2])
 
     p = PathPlanner(inputs.domain, 
                     look_ahead=0.2, 
-                    turning_radius=0.02, 
-                    record_step=3)
+                    turning_radius=0.02)
+    record_time = np.linspace(0,5,51)
     o = OptimalPath(X_pose, Y_pose, my_map, inputs)
-    m_list, p_list = o.optimize(n_iter, 
+    m_list, p_list = o.optimize(record_time, 
                                 path_planner=p, 
                                 acquisition="US")
 
@@ -37,7 +36,7 @@ def main():
 
     # Plot UAV trajectory
     r_list = [ np.array(p.make_itinerary(path,1000)[0]) for path in p_list ]
-    for ii in np.arange(0, n_iter+1, 5):
+    for ii in np.arange(0, len(m_list), 5):
         model = m_list[ii]
         yy = model.predict(pts)[0]
         ZZ = yy.reshape( (ngrid,)*ndim ).T

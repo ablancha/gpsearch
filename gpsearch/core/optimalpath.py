@@ -70,15 +70,15 @@ class OptimalPath(object):
         if fix_noise:
             self.model.Gaussian_noise.variance.fix(noise_var)
 
-    def optimize(self, n_iter, acquisition, path_planner, callback=True, 
-                 save_iter=True, prefix=None, kwargs_GPy=None,
-                 postpro=False):
+    def optimize(self, record_time, acquisition, path_planner, 
+                 callback=True, save_iter=True, prefix=None, kwargs_GPy=None):
+                 
         """Runs the Bayesian path-planning algorithm.
 
         Parameters
         ----------
-        n_iter : int
-            Number of iterations (i.e., black-box queries) to perform.
+        record_time : array_like
+            Time vector for when measurements are made.
         acquisition : str or instance of `Acquisition`
             Acquisition function for determining the next best point.
             If a string, must be one of 
@@ -108,10 +108,6 @@ class OptimalPath(object):
             Prefix for file naming
         kwargs_GPy : dict, optional
             Dictionary of arguments to be passed to the GP model.
-        postpro : boolean, optional
-            Whether or not to run the sequential-search algorithm in 
-            post-processing mode. Loads up GP models saved from 
-            previous run.
       
         Returns
         -------
@@ -120,7 +116,6 @@ class OptimalPath(object):
             the algorithm.
         p_list : list
             A list of paths, one for each iteration of the algorithm. 
-            Empty when `postpro=True`.
 
         """
         if prefix is None:
@@ -132,19 +127,15 @@ class OptimalPath(object):
 
         m_list, p_list = [], []
 
-        for ii in range(n_iter+1):
-
-            filename = (prefix+"%.4d")%(ii)
-            if postpro:
-                if ii == 0 : 
-                    print("Running in post-processing mode")
-                filename += ".zip"
-                model = GPy.models.GPRegression.load_model(filename)
-                m_list.append(model.copy())
-                self.model = model.copy()
-                continue
-
+        t_cur = 0 
+        t_fin = record_time[-1]
+        ii = -1
+        
+        while t_cur <= t_fin:
+  
+            ii += 1
             tic = time.time()
+            filename = (prefix+"%.4d")%(ii)
 
             if ii == 0:
                 paths = path_planner.make_paths(self.X_pose)
@@ -158,15 +149,22 @@ class OptimalPath(object):
                 reward = []
                 paths = path_planner.make_paths(self.X_pose)
                 for p in paths:
-                    qs, ts = path_planner.make_itinerary(p, 200)
+                    qs, ts = path_planner.make_itinerary(p,200)
                     qs, ts = np.array(qs), np.array(ts)
                     ac = acq.evaluate(qs[:,0:2])
                     reward.append(np.trapz(ac.squeeze(),ts))
                 popt = paths[np.argmin(reward)]
 
-            qopt, _ = path_planner.make_itinerary(popt)
-            xopt = np.atleast_2d(qopt)[1::,0:2] # Exclude current pose
+            t_int = t_cur + popt.path_length()
+            time_stamps = record_time[ (record_time >  t_cur) & \
+                                       (record_time <= t_int) ]
+
+            samples = []
+            for tt in time_stamps:
+                samples.append(popt.sample(tt-t_cur))
+            xopt = np.atleast_2d(samples)[:,0:2] 
             yopt = self.my_map.evaluate(xopt)
+            t_cur = t_int
 
             self.X_pose = popt.path_endpoint()
             self.X = np.vstack((self.X, xopt))

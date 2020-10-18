@@ -108,8 +108,7 @@ class PathPlanner(object):
             A Dubins path.
         sample_size : integer, optional
             How many (equidistant) poses are samples along the path. 
-            Excludes starting pose but includes destination. Default 
-            is `record_step`.
+            Default is `record_step`.
       
         Returns
         -------

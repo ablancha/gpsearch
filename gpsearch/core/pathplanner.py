@@ -39,7 +39,6 @@ class PathPlanner(object):
         self.look_ahead = look_ahead
         self.n_frontier = n_frontier
         self.fov = fov
-        self.record_step = record_step
         if padding is None:
             padding = 2*turning_radius
         self.padding = padding
@@ -105,7 +104,6 @@ class PathPlanner(object):
             A Dubins path.
         sample_size : integer, optional
             How many (equidistant) poses are samples along the path. 
-            Default is `record_step`.
       
         Returns
         -------

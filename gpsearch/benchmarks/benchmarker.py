@@ -26,6 +26,7 @@ class Benchmarker(object):
         form [ (metric_1, kwargs_metric_1), ... ], where `metric_1` is 
         one of
             - "rmse": RMSE between true and estimated objective function
+            - "mll": mean log loss between truth and GP model
             - "log_pdf": log-distance between true and estimated pdf
             - "regret_tmap": instantaneous regret using the true map
             - "regret_model": instantaneous regret using GP model
@@ -117,6 +118,8 @@ class Benchmarker(object):
         if isinstance(metric, str):
             if metric.lower() == "rmse":
                 return rmse
+            if metric.lower() == "mll":
+                return mll
             elif metric.lower() == "log_pdf":
                 return log_pdf
             elif metric.lower() == "regret_tmap":

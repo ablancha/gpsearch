@@ -74,6 +74,9 @@ def check_acquisition(acquisition, model, inputs):
     elif isinstance(acquisition, Acquisition):
         return acquisition
 
+    elif issubclass(acquisition, Acquisition):
+        return acquisition(model, inputs)
+
     else:
         raise ValueError
 

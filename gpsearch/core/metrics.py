@@ -28,7 +28,7 @@ def mll(m_list, inputs, pts=None, yy=None, accumulate=False):
     """
     res = np.zeros(len(m_list))
     for ii, model in enumerate(m_list):
-        mu, var = model.predict(pts)
+        mu, var = model.predict_noiseless(pts)
         mu, var, yy = mu.flatten(), var.flatten(), yy.flatten() 
         res[ii] = 0.5 * np.mean( np.log(2*np.pi*var) + (mu-yy)**2/var )
 

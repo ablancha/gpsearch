@@ -9,7 +9,7 @@ class PathPlanner(object):
     ---------
     domain : list
         Domain definition.  Must be of the form 
-            [ [xmin, xmax], [ymin, ymax], ... ]
+            [ [xmin, xmax], [ymin, ymax] ]
     turning_radius : float, optional
         Turning radius for Dubins curve.
     look_ahead : float, optional

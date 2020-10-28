@@ -15,11 +15,11 @@ class TestFunction():
             self.xmin = self.rescale_X(xmin)
             domain = [ [0,1] ] * len(domain) 
             self.my_map = BlackBox(self.function_sc, args=args, kwargs=kwargs,
-                               noise_var=noise_var)
+                                   noise_var=noise_var)
         else:
             self.xmin = xmin
             self.my_map = BlackBox(self.function, args=args, kwargs=kwargs,
-                               noise_var=noise_var)
+                                   noise_var=noise_var)
 
         self.inputs = UniformInputs(domain)
 
@@ -48,7 +48,7 @@ class Ackley(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False, ndim=2):
 
-        function = self._ackley
+        function = self._myfun
         domain = [ [-32.768, 32.768] ] * ndim
         y_min = 0.0
         x_min = [ [0] * ndim ]
@@ -66,7 +66,7 @@ class Ackley(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var) 
 
     @staticmethod
-    def _ackley(x, ndim=2):
+    def _myfun(x, ndim=2):
         a = 20
         b = 0.2
         c = 2*np.pi
@@ -79,7 +79,7 @@ class Bird(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._bird
+        function = self._myfun
         domain = [ [-2*np.pi, 2*np.pi] ] * 2
         y_min = -106.764537
         x_min = [ [4.70104, 3.15294], [-1.58214, -3.13024] ]
@@ -91,7 +91,7 @@ class Bird(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _bird(x):
+    def _myfun(x):
         x1, x2 = x[0], x[1]
         y = np.sin(x1) * np.exp( (1-np.cos(x2))**2 ) \
           + np.cos(x2) * np.exp( (1-np.sin(x1))**2 ) + (x1-x2)**2 
@@ -102,7 +102,7 @@ class Branin(TestFunction):
     
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._branin
+        function = self._myfun
         domain = [ [-5,10], [0,15] ]
         y_min = 0.397887 
         x_min = [ [-np.pi, 12.275], [np.pi, 2.275], [9.42478, 2.475] ]
@@ -114,7 +114,7 @@ class Branin(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var) 
 
     @staticmethod
-    def _branin(x):
+    def _myfun(x):
         a = 1.0
         b = 5.1 / (4*np.pi**2)
         c = 5 / np.pi
@@ -130,7 +130,7 @@ class BraninModified(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._braninmodified
+        function = self._myfun
         domain = [ [-5,10], [0,15] ]
         y_min = -0.179891239069905
         x_min = [ [-3.196988423389338,12.526257883092258] ]
@@ -142,7 +142,7 @@ class BraninModified(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _braninmodified(x):
+    def _myfun(x):
         a = 1.0
         b = 5.1 / (4*np.pi**2)
         c = 5 / np.pi
@@ -161,7 +161,7 @@ class Bukin(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._bukin
+        function = self._myfun
         domain = [ [-15,-5], [-3,3] ]
         y_min = 0.0
         x_min = [ [-10,1] ]
@@ -173,7 +173,7 @@ class Bukin(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _bukin(x):
+    def _myfun(x):
         x1, x2 = x[0], x[1]
         y = 100 * np.sqrt( np.abs(x2-0.01*x1**2) ) + 0.01 * np.abs(x1+10)
         return y
@@ -183,7 +183,7 @@ class Hartmann6(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._hartmann6
+        function = self._myfun
         domain = [ [0,1] ] * 6
         y_min = -3.32237
         x_min = [ [0.20169, 0.150011, 0.476874,
@@ -196,7 +196,7 @@ class Hartmann6(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _hartmann6(x):
+    def _myfun(x):
 
         alpha = np.array([1.0, 1.2, 3.0, 3.2])
 
@@ -220,7 +220,7 @@ class Himmelblau(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._himmelblau
+        function = self._myfun
         domain = [ [-6, 6] ] * 2
         y_min = 0
         x_min = [ [3,2], [-2.805118,3.283186], [-3.779310,-3.283186],
@@ -233,7 +233,7 @@ class Himmelblau(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _himmelblau(x):
+    def _myfun(x):
         x1, x2 = x[0], x[1]
         y = (x1**2 + x2 - 11)**2 + (x1 + x2**2 - 7)**2
         return y
@@ -243,7 +243,7 @@ class Michalewicz(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False, ndim=2):
 
-        function = self._michalewicz
+        function = self._myfun
         domain = [ [0, np.pi ] ] * ndim
 
         if ndim == 2:
@@ -266,7 +266,7 @@ class Michalewicz(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _michalewicz(x, ndim=2):
+    def _myfun(x, ndim=2):
         m = 10
         y = 0
         for i in range(ndim):
@@ -278,7 +278,7 @@ class OakleyOHagan(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._oakleyohagan
+        function = self._myfun
         domain = [ [-4,4] ]*2
 
         y_min = 5 - 2*np.sqrt(3) - 11*np.pi/6
@@ -291,7 +291,7 @@ class OakleyOHagan(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _oakleyohagan(x):
+    def _myfun(x):
         y = 5 + x[0] + x[1] + 2*np.cos(x[0]) + 2*np.sin(x[1]) 
         return y
 
@@ -300,7 +300,7 @@ class RosenbrockModified(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._rosenbrockmodified
+        function = self._myfun
         domain = [[-1.0, 0.5], [-1.0, 1.0]]
 
         y_min = 34.0402431
@@ -313,7 +313,7 @@ class RosenbrockModified(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _rosenbrockmodified(x):
+    def _myfun(x):
         y = 74 + 100. * (x[1] - x[0] ** 2) ** 2 + (1 - x[0]) ** 2
         y -= 400 * np.exp(-((x[0] + 1.) ** 2 + (x[1] + 1.) ** 2) / 0.1)
         return y
@@ -323,7 +323,7 @@ class UrsemWaves(TestFunction):
 
     def __init__(self, noise_var=0.0, rescale_X=False):
 
-        function = self._ursemwaves
+        function = self._myfun
         domain = [(-0.9, 1.2), (-1.2, 1.2)]
 
         y_min = -8.5536
@@ -336,7 +336,7 @@ class UrsemWaves(TestFunction):
                          rescale_X=rescale_X, noise_var=noise_var)
 
     @staticmethod
-    def _ursemwaves(x):
+    def _myfun(x):
         x1, x2 = x[0], x[1] 
         u = -0.9*x1**2
         v = (x2**2 - 4.5*x2**2) * x1 * x2

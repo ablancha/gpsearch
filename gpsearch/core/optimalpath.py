@@ -85,19 +85,19 @@ class OptimalPath(object):
                 - "PI": Probability of Improvement
                 - "EI": Expected Improvement
                 - "US": Uncertainty Sampling
-                - "US-BO": US repurposed for Bayesian Optimization (BO)
-                - "US-LW": Likelihood-Weighted US
-                - "US-LWBO": US-LW repurposed for BO
-                - "US-LWraw" : US-LW with no GMM approximation
-                - "US-LWBOraw": US-LWBO with no GMM approximation
+                - "US_BO": US repurposed for Bayesian Optimization (BO)
+                - "US_LW": Likelihood-Weighted US
+                - "US_LWBO": US-LW repurposed for BO
+                - "US_LWraw" : US-LW with no GMM approximation
+                - "US_LWBOraw": US-LWBO with no GMM approximation
                 - "LCB" : Lower Confidence Bound
-                - "LCB-LW" : Likelihood-Weighted LCB
-                - "LCB-LWraw" : LCB-LW with no GMM approximation
+                - "LCB_LW" : Likelihood-Weighted LCB
+                - "LCB_LWraw" : LCB-LW with no GMM approximation
                 - "IVR" : Integrated Variance Reduction
-                - "IVR-IW" : Input-Weighted IVR
-                - "IVR-LW" : Likelihood-Weighted IVR
-                - "IVR-BO" : IVR repurposed for BO
-                - "IVR-LWBO": IVR-LW repurposed for BO
+                - "IVR_IW" : Input-Weighted IVR
+                - "IVR_LW" : Likelihood-Weighted IVR
+                - "IVR_BO" : IVR repurposed for BO
+                - "IVR_LWBO": IVR-LW repurposed for BO
         path_planner : instance of `PathPlanner`
             Parametrization of the path by Dubins Curves.
         callback : boolean, optional

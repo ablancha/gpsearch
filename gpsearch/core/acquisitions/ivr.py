@@ -18,8 +18,8 @@ class IVR(Acquisition):
 
     def evaluate(self, x):
         x = np.atleast_2d(x)
-        _, var = self.model.predict(x) 
-       #_, var = self.model.predict_noiseless(x) # Assume small noise!
+        _, var = self.model.predict_noiseless(x) # Noiseless ghost point
+       #_, var = self.model.predict(x) 
         integral = self.integrate_covariance(x)
         if self.model.normalizer:
             var /= self.model.normalizer.std**2
@@ -28,8 +28,8 @@ class IVR(Acquisition):
 
     def jacobian(self, x):
         x = np.atleast_2d(x)
-        _, var = self.model.predict(x) 
-       #_, var = self.model.predict_noiseless(x) # Assume small noise!
+        _, var = self.model.predict_noiseless(x) # Noiseless ghost point
+       #_, var = self.model.predict(x) 
         _, var_jac = self.model.predictive_gradients(x)
         integral = self.integrate_covariance(x)
         integral_jac = self.integrate_covariance_jacobian(x)

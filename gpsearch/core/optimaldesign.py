@@ -66,7 +66,7 @@ class OptimalDesign(object):
     def optimize(self, n_iter, acquisition, opt_method="l-bfgs-b", 
                  num_restarts=10, parallel_restarts=False, n_jobs=10, 
                  callback=True, save_iter=True, prefix=None, 
-                 kwargs_GPy=None, kwargs_op=None, postpro=False):
+                 kwargs_GPy=None, kwargs_op=None):
         """Runs the Bayesian sequential-search algorithm.
 
         Parameters
@@ -110,10 +110,6 @@ class OptimalDesign(object):
             Dictionary of arguments to be passed to the GP model.
         kwargs_op : dict, optional
             Dictionary of arguments to be passed to the scipy optimizer.
-        postpro : boolean, optional
-            Whether or not to run the sequential-search algorithm in 
-            post-processing mode. Loads up GP models saved from 
-            previous run.
       
         Returns
         -------
@@ -138,14 +134,6 @@ class OptimalDesign(object):
         for ii in range(n_iter+1):
 
             filename = (prefix+"%.4d")%(ii)
-            if postpro:
-                if ii == 0 : 
-                    print("Running in post-processing mode")
-                filename += ".zip"
-                model = GPy.models.GPRegression.load_model(filename)
-                m_list.append(model.copy())
-                self.model = model.copy()
-                continue
 
             if ii == 0:
                 self.model.optimize_restarts(**kwargs_GPy)

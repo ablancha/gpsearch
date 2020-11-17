@@ -22,7 +22,7 @@ def main():
     m_list = o.optimize(n_iter,
                         acquisition="PI",
                         num_restarts=20,
-                        parallel_restarts=True, postpro=True)
+                        parallel_restarts=True)
     
     reg = regret_model(m_list, inputs, true_ymin=true_ymin, accumulate=True)
 

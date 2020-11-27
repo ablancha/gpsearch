@@ -23,8 +23,8 @@ def check_acquisition(acquisition, model, inputs):
             return US_LW(model, inputs)
 
         elif acq_name == "us_iw":
-            a = US_LW(model, inputs)
-            a.likelihood.weight_type = "nominal"
+            likelihood = Likelihood(model, inputs, weight_type="nominal")
+            a = US_LW(model, inputs, likelihood=likelihood)
             return a
 
         elif acq_name == "us_lwbo":
@@ -43,8 +43,8 @@ def check_acquisition(acquisition, model, inputs):
             return IVR_BO(model, inputs)
 
         elif acq_name == "ivr_iw":
-            a = IVR_LW(model, inputs)
-            a.likelihood.weight_type = "nominal"
+            likelihood = Likelihood(model, inputs, weight_type="nominal")
+            a = IVR_LW(model, inputs, likelihood=likelihood)
             return a
 
         elif acq_name == "ivr_lw":
@@ -54,18 +54,18 @@ def check_acquisition(acquisition, model, inputs):
             return IVR_LWBO(model, inputs)
 
         elif acq_name == "us_lwraw":
-            a = US_LW(model, inputs)
-            a.likelihood.fit_gmm = False
+            likelihood = Likelihood(model, inputs, fit_gmm=False)
+            a = US_LW(model, inputs, likelihood=likelihood)
             return a
 
         elif acq_name == "us_lwboraw":
-            a = US_LWBO(model, inputs)
-            a.likelihood.fit_gmm = False
+            likelihood = Likelihood(model, inputs, fit_gmm=False)
+            a = US_LWBO(model, inputs, likelihood=likelihood)
             return a
 
         elif acq_name == "lcb_lwraw":
-            a = LCB_LW(model, inputs)
-            a.likelihood.fit_gmm = False
+            likelihood = Likelihood(model, inputs, fit_gmm=False)
+            a = LCB_LW(model, inputs, likelihood=likelihood)
             return a
 
         else:

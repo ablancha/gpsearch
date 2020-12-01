@@ -1,15 +1,8 @@
 import os
 import numpy as np
-import psutil, gc
 import scipy
 import warnings
 from KDEpy import FFTKDE
-
-
-def memory_usage_psutil():
-    """Monitor memory usage."""
-    gc.collect()
-    return psutil.Process().memory_info().rss / (2 ** 20)
 
 
 def set_worker_env(n_threads=1):

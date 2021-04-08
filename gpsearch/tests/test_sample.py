@@ -8,7 +8,7 @@ def test_predictive_gradients_with_normalizer():
     Check that model.predictive_gradients returns the gradients of
     model.predict when normalizer=True 
     """
-    N, M, Q = 10, 15, 3
+    N, M, Q = 4, 15, 3
     X = np.random.rand(M,Q)
     Y = np.random.rand(M,1)
     x = np.random.rand(N,Q)
@@ -28,7 +28,7 @@ def test_posterior_covariance_between_points_with_normalizer():
     Check that model.posterior_covariance_between_points returns 
     the covariance from model.predict when normalizer=True
     """
-    N, M, Q = 10, 15, 3
+    N, M, Q = 4, 15, 3
     X = np.random.rand(M,Q)
     Y = np.random.rand(M,1)
     x = np.random.rand(N,Q)
@@ -37,9 +37,5 @@ def test_posterior_covariance_between_points_with_normalizer():
     c1 = model.posterior_covariance_between_points(x,x)
     c2 = model.predict(x, full_cov=True)[1]
     np.testing.assert_allclose(c1,c2)
-
-
-
-
 
 

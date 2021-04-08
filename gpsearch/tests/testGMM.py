@@ -35,17 +35,23 @@ def main():
     inputs = GaussianInputs(domain, mean, cov)
    #inputs = UniformInputs(domain)
 
-    kwargs_GMM = dict(n_components=4, covariance_type="spherical")
+    kwargs_gmm = dict(n_components=4, covariance_type="spherical")
 
     X = inputs.draw_samples(100, "lhs")
     Y = myMap.evaluate(X, parallel=True)
     o = OptimalDesign(X, Y, myMap, inputs, normalize_Y=True)
-    likelihood = Likelihood(o.model, o.inputs, "Q", kwargs_GMM=kwargs_GMM)
+    likelihood = Likelihood(o.model, o.inputs, "nominal", kwargs_gmm=kwargs_gmm)
 
     x_new = np.atleast_2d([1.0,2.0])
     gmm_y = likelihood.evaluate(x_new)
     print(jacobian_fdiff(likelihood, x_new))
     print(likelihood.jacobian(x_new))
+
+    from GPy.models import GradientChecker
+    gm = GradientChecker(lambda x: likelihood.evaluate(x),
+                         lambda x: likelihood.jacobian(x), 
+                         x_new, 'x')
+    assert(gm.checkgrad())
 
     pts = inputs.draw_samples(n_samples=100, sample_method="grd")
     gmm_y = likelihood.evaluate(pts).flatten()
@@ -61,7 +67,6 @@ def main():
     plt.colorbar(sc)
     plt.title("GMM fit")
     plt.show()
-
 
 
 if __name__ == "__main__":

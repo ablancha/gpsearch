@@ -1,7 +1,5 @@
 from .inputs import *
 from .optimaldesign import *
-from .optimalpath import *
-from .pathplanner import *
 from .utils import *
 from .metrics import *
 from .blackbox import *

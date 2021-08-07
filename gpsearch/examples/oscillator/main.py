@@ -42,7 +42,18 @@ def main():
 
     smpl = np.genfromtxt("map_samples2D.txt")
     pts = smpl[:,0:-1]
-    pdf = custom_KDE(smpl[:,-1], weights=inputs.pdf(pts))
+
+    # Compute true pdf
+    filename = "map_samples{:d}D.txt".format(ndim)
+    try:
+        smpl = np.genfromtxt(filename)
+        pts = smpl[:,0:-1]
+        yy = smpl[:,-1]
+    except:
+        pts = inputs.draw_samples(n_samples=100, sample_method="grd")
+        yy = my_map.evaluate(pts, parallel=True, include_noise=False)
+        np.savetxt(filename, np.column_stack((pts,yy)))
+    pdf = custom_KDE(yy, weights=inputs.pdf(pts))
 
     for ii in np.arange(0, n_iter+1, 10):
         pb, pp, pm = model_pdf(m_list[ii], inputs, pts=pts)

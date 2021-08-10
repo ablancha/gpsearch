@@ -40,9 +40,6 @@ def main():
                         num_restarts=10,
                         parallel_restarts=True)
 
-    smpl = np.genfromtxt("map_samples2D.txt")
-    pts = smpl[:,0:-1]
-
     # Compute true pdf
     filename = "map_samples{:d}D.txt".format(ndim)
     try:

@@ -1,4 +1,4 @@
-GPy=1.9.9
+GPy==1.9.9
 joblib>=0.14.1
 KDEpy>=1.0.2
 matplotlib>=3.1.1

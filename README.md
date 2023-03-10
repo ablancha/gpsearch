@@ -4,12 +4,17 @@ Source code for Bayesian optimization and active learning with likelihood-weight
 
 ## Installation
 
-Execute `pip install .` from the master directory.
+Clone the repo, then create a fresh conda environment from the requirements file and install using `pip`.
 
+```
+git clone https://github.com/ablancha/gpsearch.git
+cd gpsearch
+conda create --name myenv --file requirements.txt -c conda-forge -c dmentipl
+pip install .
+```
 
 ## Notes
-
-Beware of [this issue](https://github.com/SheffieldML/GPy/issues/802) if you are using the `devel` version of `GPy`.  The acquisition functions available in `gpsearch` are compatible with the `deploy` branch of `GPy`.
+The acquisition functions available in `gpsearch` are compatible with 1.9.9 of GPy. Beware of [this issue](https://github.com/SheffieldML/GPy/issues/802) if you decide to use a different version.
 
 ## Benchmarks
 

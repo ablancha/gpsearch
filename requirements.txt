@@ -1,5 +1,5 @@
 GPy==1.9.9
-joblib==0.14.1
+joblib==1.2.0
 KDEpy==1.0.2
 matplotlib==3.1.1
 numpy==1.17.2

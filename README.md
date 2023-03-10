@@ -10,6 +10,7 @@ Clone the repo, then create a fresh conda environment from the requirements file
 git clone https://github.com/ablancha/gpsearch.git
 cd gpsearch
 conda create --name myenv --file requirements.txt -c conda-forge -c dmentipl
+conda activate myenv
 pip install .
 ```
 

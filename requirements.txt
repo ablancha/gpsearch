@@ -2,7 +2,7 @@ GPy==1.9.9
 joblib==1.2.0
 KDEpy==1.0.2
 matplotlib==3.1.1
-numpy==1.17.2
+numpy==1.22.0
 pyDOE==0.3.8
 scikit-learn==0.20.1
 scipy==1.10.0
